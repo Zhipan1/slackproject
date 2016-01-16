@@ -17,11 +17,13 @@
   Gallery.prototype.showLighthouseImage = function(e, index) {
     this.lighthouse.showPhotoAtIndex(index);
     this.grid.hidePhotos();
+    this.disableScroll();
   }
 
   Gallery.prototype.hideLighthouseImage = function() {
     this.lighthouse.close();
     this.grid.showPhotos();
+    this.enableScroll();
   }
 
   Gallery.prototype.nextLighthouseImage = function() {
@@ -30,6 +32,14 @@
 
   Gallery.prototype.prevLighthouseImage = function() {
     this.lighthouse.showPrevPhoto();
+  }
+
+  Gallery.prototype.disableScroll = function() {
+    document.body.setAttribute('style', 'overflow: hidden');
+  }
+
+  Gallery.prototype.enableScroll = function() {
+    document.body.setAttribute('style', 'overflow: ""');
   }
 
   Gallery.prototype.searchImages = function(queryText) {

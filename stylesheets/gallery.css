@@ -25,8 +25,19 @@
   opacity: 1
 }
 
+#photo-gallery-header h1 {
+  font-size: 44px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
 #photo-gallery-header h3 {
   color: #6ecadc;
+  font-size: 22px;
+  font-weight: 400;
+  margin-top: 5px;
+  margin-bottom: 50px;
+  opacity: 0.8;
 }
 
 

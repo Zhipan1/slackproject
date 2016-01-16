@@ -21,22 +21,24 @@
   margin-bottom: 5px;
   background-color: black;
   cursor: pointer;
+  transition: 0.3s cubic-bezier(0.7, 0, 0.3, 1);
 }
 
 .grid-photo:hover img {
+  -webkit-filter: grayscale(0%);
+  transform: scale(1.05);
 }
 
 .grid-photo img {
   height: 100%;
   margin: auto;
   display: block;
-  transition: 0.3s ease;
+  transition: 0.3s cubic-bezier(0.7, 0, 0.3, 1);
   -webkit-filter: grayscale(100%);
 }
 
 .grid-photo.active {
   opacity: 1;
-  transition: 0.3s ease;
   transform: translate(0px, 0px);
 }
 

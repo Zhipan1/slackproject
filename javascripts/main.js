@@ -26,7 +26,7 @@
   var timer;
 
   function searchImages(value) {
-    if (value != searchValue) {
+    if (value && value != searchValue) {
       loading_icon.setAttribute('style', "display: block" );
       searchValue = value;
       gallery.searchImages(value);
