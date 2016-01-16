@@ -1,0 +1,41 @@
+
+
+
+/* Style for Photo Grid */
+
+#photo-grid {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.grid-photo {
+  display: none;
+  opacity: 0;
+  max-width: 250px;
+  transform: scale(0.9);
+  width: 100%;
+  overflow: hidden;
+  height: 250px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  background-color: black;
+  cursor: pointer;
+}
+
+.grid-photo:hover img {
+}
+
+.grid-photo img {
+  height: 100%;
+  margin: auto;
+  display: block;
+  transition: 0.3s ease;
+  -webkit-filter: grayscale(100%);
+}
+
+.grid-photo.active {
+  opacity: 1;
+  transition: 0.3s ease;
+  transform: scale(1);
+}
