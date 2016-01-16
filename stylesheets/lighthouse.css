@@ -50,12 +50,14 @@
   margin-top: 20px;
   opacity: 0;
   transition: 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  transform: translate(0px, 10px);
+  -webkit-transform: translate(0px, 10px);
+          transform: translate(0px, 10px);
 }
 
 #photo-lighthouse.active #photo-lighthouse-display-text {
   opacity: 1;
-  transform: translate(0px, 0px);
+  -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
 }
 
 .photo-lighthouse-nav {

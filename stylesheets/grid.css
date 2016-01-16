@@ -13,7 +13,8 @@
   display: inline-block;
   opacity: 0;
   max-width: 250px;
-  transform: translate(0px, 15px);
+  -webkit-transform: translate(0px, 15px);
+          transform: translate(0px, 15px);
   width: 100%;
   overflow: hidden;
   height: 250px;
@@ -27,7 +28,8 @@
 .grid-photo:hover img {
   -webkit-filter: grayscale(0%);
   filter: grayscale(0%);
-  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
 }
 
 .grid-photo img {
@@ -41,10 +43,12 @@
 
 .grid-photo.active {
   opacity: 1;
-  transform: translate(0px, 0px);
+  -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
 }
 
 .grid-photo.shrink {
-  transform: scale(0.7);
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
   opacity: 0
 }
