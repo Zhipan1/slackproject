@@ -2,12 +2,16 @@
 
   'use strict';
 
-  function Gallery(gridContainer, lighthouseContainers) {
-    this.gridContainer = gridContainer;
-    this.lighthouse = new LightHouse(getLighthouseContainers(), this.hideLighthouseImage.bind(this));
-    this.grid = new Grid(this.gridContainer, this.showLighthouseImage.bind(this));
+  function Gallery(gridContainers, lighthouseContainers, loadMoreButton) {
+    this.lighthouse = new LightHouse(lighthouseContainers, this.hideLighthouseImage.bind(this));
+    this.grid = new Grid(gridContainers, this.showLighthouseImage.bind(this));
+    this.loadMoreButton = loadMoreButton;
+    this.page = 0;
     this.photos = [];
     this.queryText = '';
+
+    //attach events
+    this.loadMoreButton.addEventListener('click', function() {this.loadImages(this.queryText)}.bind(this))
   }
 
   Gallery.prototype.showLighthouseImage = function(e, index) {
@@ -29,15 +33,26 @@
   }
 
   Gallery.prototype.searchImages = function(queryText) {
-    this.grid.reset();
-    this.lighthouse.reset();
+    this.reset();
     this.queryText = queryText;
     this.loadImages(this.queryText);
   }
 
+  Gallery.prototype.reset = function() {
+    this.grid.reset();
+    this.lighthouse.reset();
+    this.queryText = '';
+    this.page = 0;
+  }
+
   Gallery.prototype.loadImages = function(queryText) {
     this.queryText = queryText;
-    Flickr.searchForPhotos(this.queryText, this.handleLoadedImages.bind(this));
+    this.page++;
+    Flickr.searchForPhotos(this.queryText, this.handleLoadedImages.bind(this), this.handleLoadFail.bind(this), {page: this.page});
+  }
+
+  Gallery.prototype.handleLoadFail = function(data) {
+    console.log("uh oh...", data);
   }
 
   Gallery.prototype.handleLoadedImages = function(data) {
@@ -47,19 +62,6 @@
     this.grid.loadPhotos(photos);
     this.lighthouse.loadPhotos(photos);
   }
-
-  function getLighthouseContainers() {
-    return {
-      main_container: document.getElementById("photo-lighthouse"),
-      image_text_container: document.getElementById('photo-lighthouse-display-text'),
-      image_containers: document.getElementsByClassName('photo-lighthouse-display-image'),
-      next_image_button: document.getElementById("photo-lighthouse-next"),
-      prev_image_button: document.getElementById("photo-lighthouse-prev"),
-      close_image_button: document.getElementById("photo-lighthouse-close"),
-      overlay: document.getElementById("photo-lighthouse-overlay")
-    }
-  }
-
 
   window.Gallery = Gallery;
 

@@ -1,6 +1,6 @@
 (function(window, document) {
 
-  var gallery = new Gallery(document.getElementById("photo-grid"));
+  var gallery = new Gallery(getGridContainers(), getLighthouseContainers(), document.getElementById("gallery-load-more"));
   window.g = gallery;
   gallery.searchImages("Travel City");
   document.body.addEventListener('keydown', function(e) {
@@ -40,7 +40,27 @@
     timer = setTimeout(function() {
       searchImages(this.value)
     }.bind(this), 500)
-  })
+  });
+
+
+    function getLighthouseContainers() {
+    return {
+      main_container: document.getElementById("photo-lighthouse"),
+      image_text_container: document.getElementById('photo-lighthouse-display-text'),
+      image_containers: document.getElementsByClassName('photo-lighthouse-display-image'),
+      next_image_button: document.getElementById("photo-lighthouse-next"),
+      prev_image_button: document.getElementById("photo-lighthouse-prev"),
+      close_image_button: document.getElementById("photo-lighthouse-close"),
+      overlay: document.getElementById("photo-lighthouse-overlay")
+    }
+  }
+
+  function getGridContainers() {
+    return {
+      photos_container: document.getElementById("photo-grid")
+    }
+  }
+
 
 
 })(window, document);

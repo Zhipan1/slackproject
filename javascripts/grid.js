@@ -1,15 +1,15 @@
 (function(window, document) {
   'use strict';
 
-  function Grid(container, photoOnClick) {
+  function Grid(containers, photoOnClick) {
     this.gridPhotos = [];
-    this.container = container;
+    this.photosContainer = containers["photos_container"];
     this.photoOnClick = photoOnClick;
   }
 
   Grid.prototype.reset = function() {
     this.gridPhotos = [];
-    this.container.innerHTML = "";
+    this.photosContainer.innerHTML = "";
   }
 
   Grid.prototype.loadPhotos = function(photos) {
@@ -28,7 +28,7 @@
   }
 
   Grid.prototype.appendPhoto = function(PhotoDOMElement) {
-    this.container.appendChild(PhotoDOMElement);
+    this.photosContainer.appendChild(PhotoDOMElement);
   }
 
   Grid.prototype.showPhotos = function() {

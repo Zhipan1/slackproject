@@ -40,13 +40,14 @@
     httpRequest.send();
   }
 
-  function searchForPhotos(text, successCallback, failureCallback) {
-    var requestUrl = buildFlickrUrl('flickr.photos.search', {
+  function searchForPhotos(text, successCallback, failureCallback, params) {
+    var params = Utility.extend(params, {
       text: text,
       safe_search: 1,
       per_page: 48,
       sort: "interestingness-desc"
-    });
+    })
+    var requestUrl = buildFlickrUrl('flickr.photos.search', params);
     ajaxCall('GET', requestUrl, successCallback, failureCallback);
   }
 
