@@ -41,7 +41,12 @@
   }
 
   function searchForPhotos(text, successCallback, failureCallback) {
-    var requestUrl = buildFlickrUrl('flickr.photos.search', {text: text});
+    var requestUrl = buildFlickrUrl('flickr.photos.search', {
+      text: text,
+      safe_search: 1,
+      per_page: 48,
+      sort: "interestingness-desc"
+    });
     ajaxCall('GET', requestUrl, successCallback, failureCallback);
   }
 

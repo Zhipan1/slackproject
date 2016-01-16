@@ -10,10 +10,10 @@
 }
 
 .grid-photo {
-  display: none;
+  display: inline-block;
   opacity: 0;
   max-width: 250px;
-  transform: scale(0.9);
+  transform: translate(0px, 15px);
   width: 100%;
   overflow: hidden;
   height: 250px;
@@ -37,5 +37,10 @@
 .grid-photo.active {
   opacity: 1;
   transition: 0.3s ease;
-  transform: scale(1);
+  transform: translate(0px, 0px);
+}
+
+.grid-photo.shrink {
+  transform: scale(0.7);
+  opacity: 0
 }

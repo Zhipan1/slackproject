@@ -37,6 +37,12 @@
     }
   }
 
+  Grid.prototype.hidePhotos = function() {
+    for (var i = 0; i < this.gridPhotos.length; i++) {
+      this.gridPhotos[i].hide();
+    }
+  }
+
   function GridPhoto(photo, index, onClick) {
     this.photo = photo;
     this.index = index;
@@ -64,10 +70,14 @@
   }
 
   GridPhoto.prototype.show = function(e) {
-    this.DOMElement.setAttribute('style', "display: inline-block" );
+    this.DOMElement.className = this.DOMElement.className.replace(' shrink','').replace(' active','');
     setTimeout(function() {
       this.DOMElement.className += " active";
     }.bind(this), 50);
+  }
+
+  GridPhoto.prototype.hide = function(e) {
+    this.DOMElement.className += ' shrink';
   }
 
   window.Grid = Grid;

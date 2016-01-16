@@ -7,6 +7,12 @@
   height: 100%;
   width: 100%;
   display: none;
+  opacity: 0;
+  transition: 0.5s ease;
+}
+
+#photo-lighthouse.active {
+  opacity: 1;
 }
 
 #photo-lighthouse-display {
@@ -40,4 +46,57 @@
   margin: 0 auto;
   max-width: 480px;
   text-align: center;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.photo-lighthouse-nav {
+  position: absolute;
+  height: 100%;
+  width: 80px;
+  top: 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.photo-lighthouse-nav:hover img {
+  opacity: 1
+}
+
+#photo-lighthouse-next {
+  right: 0;
+  left: initial;
+}
+
+#photo-lighthouse-next img {
+  left: 0px;
+  right: initial;
+}
+
+.photo-lighthouse-nav img {
+  width: 100%;
+  right: 0px;
+  top: 0;
+  width: 20px;
+  opacity: 0.7;
+  transition: 0.3s ease;
+}
+
+#photo-lighthouse-close {
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 80px;
+  right: 0px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#photo-lighthouse-close:hover img{
+  opacity: 1
+}
+
+#photo-lighthouse-close img {
+  width: 20px;
+  opacity: 0.7
 }

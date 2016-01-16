@@ -4,7 +4,7 @@
 
   function Gallery(gridContainer, lighthouseContainers) {
     this.gridContainer = gridContainer;
-    this.lighthouse = new LightHouse(getLighthouseContainers());
+    this.lighthouse = new LightHouse(getLighthouseContainers(), this.hideLighthouseImage.bind(this));
     this.grid = new Grid(this.gridContainer, this.showLighthouseImage.bind(this));
     this.photos = [];
     this.queryText = '';
@@ -12,14 +12,25 @@
 
   Gallery.prototype.showLighthouseImage = function(e, index) {
     this.lighthouse.showPhotoAtIndex(index);
+    this.grid.hidePhotos();
   }
 
   Gallery.prototype.hideLighthouseImage = function() {
     this.lighthouse.close();
+    this.grid.showPhotos();
+  }
+
+  Gallery.prototype.nextLighthouseImage = function() {
+    this.lighthouse.showNextPhoto();
+  }
+
+  Gallery.prototype.prevLighthouseImage = function() {
+    this.lighthouse.showPrevPhoto();
   }
 
   Gallery.prototype.searchImages = function(queryText) {
     this.grid.reset();
+    this.lighthouse.reset();
     this.queryText = queryText;
     this.loadImages(this.queryText);
   }
@@ -44,6 +55,7 @@
       image_containers: document.getElementsByClassName('photo-lighthouse-display-image'),
       next_image_button: document.getElementById("photo-lighthouse-next"),
       prev_image_button: document.getElementById("photo-lighthouse-prev"),
+      close_image_button: document.getElementById("photo-lighthouse-close"),
       overlay: document.getElementById("photo-lighthouse-overlay")
     }
   }

@@ -1,7 +1,7 @@
 (function(window, document) {
   'use strict';
 
-  function LightHouse(containers) {
+  function LightHouse(containers, onCloseCallback) {
     this.mainContainer = containers['main_container'];
     this.imageTextContainer = containers['image_text_container'];
     var imageContainers = containers['image_containers'];
@@ -10,6 +10,7 @@
     this.nextImageContainer = imageContainers[2];
     this.nextImageButton = containers['next_image_button'];
     this.prevImageButton = containers['prev_image_button'];
+    this.closeImageButton = containers['close_image_button'];
     this.overlay = containers['overlay'];
     this.photosData = [];
     this.displayPhotos = [];
@@ -25,6 +26,7 @@
     //attach event handler
     this.nextImageButton.addEventListener("click", this.showNextPhoto.bind(this));
     this.prevImageButton.addEventListener("click", this.showPrevPhoto.bind(this));
+    this.closeImageButton.addEventListener("click", onCloseCallback);
   }
 
   LightHouse.prototype.loadPhotos = function(photos) {
@@ -40,15 +42,15 @@
   }
 
   LightHouse.prototype.showPhotoAtIndex = function(index) {
-    this.show();
     this.photoIndex = index;
-    this.showOverlay();
     this.showPhotoAtCurrentIndex();
   }
 
   LightHouse.prototype.showOverlay = function() {
-    this.overlay.setAttribute('style', "display: block" );
-    setTimeout(function() {this.overlay.className += ' active'}.bind(this), 50);
+    if (this.overlay.className.indexOf("active") == -1) {
+      this.overlay.setAttribute('style', "display: block" );
+      setTimeout(function() {this.overlay.className += ' active'}.bind(this), 30);
+    }
   }
 
   LightHouse.prototype.hideOverlay = function() {
@@ -57,11 +59,16 @@
   }
 
   LightHouse.prototype.show = function() {
-    this.mainContainer.setAttribute('style', "display: block" );
+    if (this.mainContainer.className.indexOf("active") == -1) {
+      this.mainContainer.setAttribute('style', "display: block" );
+      setTimeout(function() {this.mainContainer.className += ' active'}.bind(this), 30);
+      this.showOverlay();
+    }
   }
 
   LightHouse.prototype.showPhotoAtCurrentIndex = function() {
     //load current image first, then load surrounding
+    setTimeout(this.show.bind(this), 200);
     this.currentImage = this.displayPhotos[this.photoIndex];
     this.prevImage = this.photoIndex > 0 ? this.displayPhotos[this.photoIndex - 1] : null;
     this.nextImage = this.photoIndex < this.displayPhotos.length - 1 ? this.displayPhotos[this.photoIndex + 1] : null;
@@ -70,7 +77,6 @@
   }
 
   LightHouse.prototype.setLighthouseText = function(text) {
-    console.log(text);
     this.imageTextContainer.innerHTML = text;
   }
 
@@ -80,7 +86,6 @@
   }
 
   LightHouse.prototype.loadSurroundImage = function() {
-    console.log(this);
     if (this.nextImage)
       this.nextImage.loadPhoto(this.nextImageContainer);
     if (this.prevImage)
@@ -120,7 +125,8 @@
   }
 
   LightHouse.prototype.hide = function() {
-    this.mainContainer.setAttribute('style', "display: none" );
+    this.mainContainer.className = this.mainContainer.className.replace(" active", "");
+    setTimeout(function() {this.mainContainer.setAttribute('style', "display: none" );}.bind(this), 300)
   }
 
   LightHouse.prototype.close = function() {
@@ -133,6 +139,15 @@
       this.nextImage.hide();
     this.hideOverlay();
     this.hide();
+  }
+
+  LightHouse.prototype.reset = function() {
+    this.photosData = [];
+    this.displayPhotos = [];
+    this.prevImage = null;
+    this.currentImage = null;
+    this.nextImage = null;
+    this.photoIndex = 0;
   }
 
 
@@ -148,7 +163,6 @@
 
   LightHousePhoto.prototype.loadPhoto = function(container, onload) {
     if (!this.rendered) {
-      console.log('rendering photo number', this.index);
       container.src = Flickr.buildPhotoUrl(this.photo, 'large');
       this.rendered = true;
       this.DOMElement = container;
@@ -172,8 +186,8 @@
   }
 
   LightHousePhoto.prototype.hide = function() {
-    if (this.rendered)
-      this.DOMElement.setAttribute('style', "display: none" );
+    this.DOMElement.setAttribute('style', "display: none" );
+    this.clear();
   }
 
   LightHousePhoto.prototype.getTitle = function() {
