@@ -67,7 +67,7 @@
 
   Gallery.prototype.handleLoadedImages = function(data) {
     var photos = data['photos']['photo'];
-    // extned the current this.photos array with the new queried photos array
+    // extend the current this.photos array with the new queried photos array
     this.photos.push.apply(this.photos, photos);
     this.grid.loadPhotos(photos);
     this.lighthouse.loadPhotos(photos);

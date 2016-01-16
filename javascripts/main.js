@@ -43,7 +43,7 @@
   });
 
 
-    function getLighthouseContainers() {
+  function getLighthouseContainers() {
     return {
       main_container: document.getElementById("photo-lighthouse"),
       image_text_container: document.getElementById('photo-lighthouse-display-text'),
