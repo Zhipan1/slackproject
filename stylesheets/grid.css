@@ -1,6 +1,4 @@
 
-
-
 /* Style for Photo Grid */
 
 #photo-grid {
@@ -13,8 +11,6 @@
   display: inline-block;
   opacity: 0;
   max-width: 250px;
-  -webkit-transform: translate(0px, 15px);
-          transform: translate(0px, 15px);
   width: 100%;
   overflow: hidden;
   height: 250px;
@@ -22,15 +18,30 @@
   margin-bottom: 5px;
   background-color: black;
   cursor: pointer;
+  /* Use translate3d to force browser to use hardware acceleration. Make things smoother on Safari. */
+  -webkit-transform: translate3d(0px, 15px, 0px);
+          transform: translate3d(0px, 15px, 0px);
   transition: 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  -webkit-transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
 }
 
+.grid-photo.active {
+  opacity: 1;
+  -webkit-transform: translate3d(0px, 0px, 0px);
+          transform: translate3d(0px, 0px, 0px);
+}
+
+.grid-photo.shrink {
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+  opacity: 0;
+}
+
+
 .grid-photo:hover img {
-  -webkit-filter: grayscale(0%);
   filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
 }
@@ -40,21 +51,10 @@
   margin: auto;
   display: block;
   transition: 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
-  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-filter: grayscale(100%);
+  /* Use translate3d to force browser to use hardware acceleration. Make things smoother on Safari. */
+  -webkit-transform: translate3d(0px, 0px, 0px);
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
-}
-
-.grid-photo.active {
-  opacity: 1;
-  -webkit-transform: translate(0px, 0px);
-          transform: translate(0px, 0px);
-}
-
-.grid-photo.shrink {
-  -webkit-transform: scale(0.7);
-          transform: scale(0.7);
-  opacity: 0
 }

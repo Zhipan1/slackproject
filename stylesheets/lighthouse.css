@@ -1,4 +1,5 @@
 
+/* Styles for LightHouse */
 
 #photo-lighthouse {
   position: fixed;
@@ -9,6 +10,7 @@
   display: none;
   opacity: 0;
   transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  /* Use translate3d to force browser to use hardware acceleration. Make things smoother on Safari. */
   -webkit-transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
@@ -37,6 +39,7 @@
   display: none;
   opacity: 0;
   transition: 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+  /* Use translate3d to force browser to use hardware acceleration. Make things smoother on Safari. */
   -webkit-transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
@@ -44,7 +47,6 @@
 
 #photo-lighthouse-overlay.active {
   opacity: 1;
-
 }
 
 #photo-lighthouse-display-text {
@@ -56,17 +58,17 @@
   margin-top: 20px;
   opacity: 0;
   transition: 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-  -webkit-transform: translate(0px, 10px);
-          transform: translate(0px, 10px);
-  -webkit-transform: translate3d(0, 0, 0);
+  /* Use translate3d to force browser to use hardware acceleration. Make things smoother on Safari. */
+  -webkit-transform: translate3d(0px, 10px, 0px);
+          transform: translate3d(0px, 10px, 0px);
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
 }
 
 #photo-lighthouse.active #photo-lighthouse-display-text {
   opacity: 1;
-  -webkit-transform: translate(0px, 0px);
-          transform: translate(0px, 0px);
+  -webkit-transform: translate3d(0px, 0px, 0px);
+          transform: translate3d(0px, 0px, 0px);
 }
 
 .photo-lighthouse-nav {
@@ -99,9 +101,6 @@
   width: 20px;
   opacity: 0.5;
   transition: 0.3s ease;
-  -webkit-transform: translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  -webkit-perspective: 1000;
 }
 
 #photo-lighthouse-close {
