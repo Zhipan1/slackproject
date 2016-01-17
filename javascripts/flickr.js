@@ -4,6 +4,9 @@
   var APIKEY = 'a66c5f4f4c67a538260f199913198b2f';
   var APIURL = 'https://api.flickr.com/services/rest/';
   var httpRequest;
+  var SAFE_SEARCH_FLAG = 1; // 1 is on
+  var PHOTOS_PER_PAGE = 48;
+  var SORT_BY = 'interestingness-desc';
 
   function buildFlickrUrl(method, params) {
     var requestParams = Utility.extend(params, {
@@ -31,11 +34,11 @@
     httpRequest = new XMLHttpRequest();
 
     if (!httpRequest) {
-      alert('lmao sorry');
+      alert('lol ajax call failed');
       return false;
     }
 
-    httpRequest.onreadystatechange = function () {handleAjaxCallback(successCallback, failCallback)};
+    httpRequest.onreadystatechange = function () {handleAjaxCallback(successCallback, failCallback);};
     httpRequest.open(method, url);
     httpRequest.send();
   }
@@ -43,10 +46,10 @@
   function searchForPhotos(text, successCallback, failureCallback, params) {
     var params = Utility.extend(params, {
       text: text,
-      safe_search: 1,
-      per_page: 48,
-      sort: "interestingness-desc"
-    })
+      safe_search: SAFE_SEARCH_FLAG,
+      per_page: PHOTOS_PER_PAGE,
+      sort: SORT_BY
+    });
     var requestUrl = buildFlickrUrl('flickr.photos.search', params);
     ajaxCall('GET', requestUrl, successCallback, failureCallback);
   }
@@ -55,10 +58,10 @@
   function buildPhotoUrl(photo, size) {
     if (size == 'thumbnail') {
       size = '_q';
-    } else if (size == "large") {
+    } else if (size == 'large') {
       size = '_b';
     } else {
-      size = ''
+      size = '';
     }
     return 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + size + '.jpg';
    }
@@ -67,7 +70,7 @@
   window.Flickr = {
     searchForPhotos: searchForPhotos,
     buildPhotoUrl: buildPhotoUrl
-  }
+  };
 
 
 

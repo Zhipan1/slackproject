@@ -11,7 +11,7 @@
       }
     }
 
-    //remove last '&' LMAO
+    // remove last '&'
     if (queryString.lastIndexOf('&') == queryString.length - 1) {
       queryString = queryString.substring(0, queryString.length - 1);
     }
